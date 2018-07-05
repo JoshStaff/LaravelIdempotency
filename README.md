@@ -20,3 +20,5 @@ Please open any issues / pull requests, happy to help.
 TODO:
 
 Intending on automagically re-attempting the request using sensible jitter times. Once the request has failed after a set amount of attempts, I'd like to defer the request to the Laravel Queues. If this functionality is useful – Please shout.
+
+**Unit / Functional tests**
