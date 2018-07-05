@@ -2,6 +2,7 @@
 
 namespace LaravelIdempotency;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -13,8 +14,32 @@ class ServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->app->bind('laravelidempotency', function () {
-            return new IdempotencyMiddleware(config('idempotency'));
-        });
+        $this->mergeConfiguration();
+    }
+
+    /**
+     * @param Router $router
+     */
+    public function boot(Router $router)
+    {
+        $this->publishes(
+            [
+                __DIR__.'/config/idempotency.php' => config_path('idempotency.php'),
+            ]
+        );
+
+        $router->aliasMiddleware('idempotent', IdempotencyMiddleware::class);
+        $router->pushMiddlewareToGroup('global', IdempotencyMiddleware::class);
+    }
+
+    /**
+     * Merges the configuration for the idempotency package.
+     */
+    private function mergeConfiguration()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/config/idempotency.php',
+            'idempotency'
+        );
     }
 }

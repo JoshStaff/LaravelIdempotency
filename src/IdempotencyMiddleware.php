@@ -2,11 +2,13 @@
 
 namespace LaravelIdempotency;
 
-class IdempotencyMiddleware {
+use Closure;
 
-    public function __construct(array $config)
+class IdempotencyMiddleware
+{
+
+    public function handle($request, Closure $next)
     {
-        $this->config = $config;
+        return $next($request);
     }
-
 }
