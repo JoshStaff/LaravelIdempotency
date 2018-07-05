@@ -28,12 +28,13 @@ class ServiceProvider extends BaseServiceProvider
             ]
         );
 
+
         $router->aliasMiddleware('idempotent', IdempotencyMiddleware::class);
         $router->pushMiddlewareToGroup('global', IdempotencyMiddleware::class);
     }
 
     /**
-     * Merges the configuration for the idempotency package.
+     * Extraction for the merge config helper
      */
     private function mergeConfiguration()
     {
