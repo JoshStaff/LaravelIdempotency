@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelIdempotency\Core;
+namespace LaravelIdempotency;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
