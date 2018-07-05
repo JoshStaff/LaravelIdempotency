@@ -1,0 +1,17 @@
+{
+    "name": "joshua/laravel-idempotency",
+    "description": "An easily customisable and reusable idempotency middleware for Laravel.",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "LaravelIdempotency\\Core": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelIdempotency\\Core\\ServiceProvider"
+            ]
+        }
+    }
+}
