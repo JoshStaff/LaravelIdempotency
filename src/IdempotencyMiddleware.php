@@ -15,13 +15,11 @@ class IdempotencyMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if ($this->nonIndempotentRequest()) {
+        if (!$this->indempotentRequest()) {
             return $next($request);
         }
 
-        $cached = $this->requiresCaching($request, $next);
-
-        if (!$cached) {
+        if (!$this->requiresCaching($request, $next)) {
             return cache()->get(request()->header(config('idempotency.KEY_NAME')));
         }
 
@@ -31,9 +29,9 @@ class IdempotencyMiddleware
     /**
      * @return bool
      */
-    private function nonIndempotentRequest()
+    private function indempotentRequest()
     {
-        return !(
+        return (
             in_array(request()->getMethod(), config('idempotency.IDEMPOTENT_METHODS'))
             || request()->header(config('idempotency.KEY_NAME'))
         );
